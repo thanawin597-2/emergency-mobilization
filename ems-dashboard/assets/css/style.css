@@ -1,0 +1,1383 @@
+:root {
+  --color-bg:           #f0f2f5;
+  --color-navbar:       #ffffff;
+  --color-card:         #ffffff;
+  --color-border:       #e2e8f0;
+  --color-navy:         #1e3a5f;
+  --color-navy-light:   #2a4a7a;
+  --color-red:          #c0392b;
+  --color-red-light:    #fdf2f2;
+  --color-green:        #27ae60;
+  --color-green-light:  #f0fdf4;
+  --color-gray:         #95a5a6;
+  --color-gray-light:   #f8f9fa;
+  --color-yellow:       #f39c12;
+  --color-text-primary:   #1a202c;
+  --color-text-secondary: #64748b;
+  --color-text-muted:     #94a3b8;
+  --navbar-height:      64px;
+  --border-radius:      12px;
+  --border-radius-sm:   8px;
+  --shadow-sm:          0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:          0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg:          0 8px 32px rgba(0,0,0,0.14);
+  --transition:         all 0.2s ease;
+}
+
+/* ---------- 2. BASE ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+/* ---------- 3. TOP NAVBAR ---------- */
+.top-navbar {
+  height: var(--navbar-height);
+  background: var(--color-navbar);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Logo area inside navbar */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.navbar-logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--color-red);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.navbar-logo-text .logo-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-navy);
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+}
+
+.navbar-logo-text .logo-sub {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.2px;
+}
+
+.navbar-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
+
+.navbar-spacer { flex: 1; }
+
+/* Clock */
+.navbar-clock {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+/* MQTT Badge */
+.mqtt-indicator {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: var(--color-gray-light);
+  border: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.mqtt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.mqtt-dot.online {
+  background: var(--color-green);
+  animation: pulseMqtt 2s infinite;
+  box-shadow: 0 0 0 2px rgba(39,174,96,0.2);
+}
+
+.mqtt-dot.offline {
+  background: var(--color-red);
+}
+
+@keyframes pulseMqtt {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(39,174,96,0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(39,174,96,0);   }
+}
+
+/* Icon Buttons */
+.navbar-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-gray-light);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.navbar-icon-btn:hover {
+  background: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.notif-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 16px;
+  height: 16px;
+  background: var(--color-red);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+/* User Avatar */
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-navy);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 2px solid var(--color-border);
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.user-avatar:hover {
+  border-color: var(--color-navy);
+}
+
+/* ---------- 4. EMERGENCY BANNER ---------- */
+.emergency-banner {
+  background: linear-gradient(135deg, #c0392b, #922b21);
+  color: white;
+  padding: 11px 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  animation: bannerPulse 2s ease-in-out infinite;
+}
+
+.emergency-banner .banner-icon {
+  font-size: 18px;
+  animation: bellShake 0.5s infinite;
+}
+
+@keyframes bannerPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.88; }
+}
+
+@keyframes bellShake {
+  0%, 100% { transform: rotate(0deg); }
+  25%       { transform: rotate(-12deg); }
+  75%       { transform: rotate(12deg); }
+}
+
+/* ---------- 5. PAGE CONTENT ---------- */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-size: 11px;
+}
+
+.page-content {
+  height: calc(100vh - 64px);
+  padding: 8px;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  /* overflow: hidden; */
+}
+
+/* ---------- 6. CONTROL PANEL ---------- */
+
+.control-panel {
+  height: 72px;
+  min-height: 72px;
+  max-height: 72px;
+  background: #ffffff;
+  border: 1px solid #dbe3ea;
+  border-radius: 12px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-inline {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.mini-summary {
+  min-width: 70px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  flex-shrink: 0;         /* 🔥 ห้ามยุบจนหาย */
+}
+
+.mini-label {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-value {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;    /* 🔥 ป้องกัน "หาย/ตกบรรทัด" */
+}
+.mini-summary.alert {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+.compact-info {
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--color-text-muted);
+}
+
+.panel-label {
+  display: none;
+}
+
+.btn-mobilize {
+  background: linear-gradient(135deg, #c0392b, #a93226);
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  box-shadow: 0 4px 14px rgba(192,57,43,0.3);
+  white-space: nowrap;
+}
+
+.system-status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 50px;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  box-sizing: border-box;
+}
+
+.system-status-pill.active,
+.system-status-pill.standby {
+  align-self: center;
+}
+
+/* ---------- 7. TOOLBAR ---------- */
+
+.section-toolbar {
+  flex-shrink: 0;
+  height: 34px;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 12px;
+}
+
+.count-pill {
+  font-size: 10px;
+}
+
+.search-input {
+  padding: 7px 12px 7px 30px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--color-text-primary);
+  background: white;
+  outline: none;
+  transition: var(--transition);
+  width: 250px;
+  height: 34px;
+}
+
+.filter-btn {
+  padding: 5px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  background: white;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* ---------- 8. OFFICER GRID ---------- */
+.officer-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+  overflow-y: auto;
+  align-items: start;
+}
+
+/* ---------- 9. OFFICER CARD ---------- */
+
+.officer-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+.officer-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.officer-card.state-online {
+  border-top: 2px solid var(--color-green);
+}
+
+.officer-card.state-alerting {
+  border-top: 2px solid var(--color-red);
+}
+
+.officer-card.state-ack {
+  border-top: 2px solid var(--color-green);
+}
+
+.officer-card.state-offline {
+  border-top: 2px solid #cbd5e1;
+}
+
+/* ---------- CARD CONTENT ---------- */
+
+.card-status-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 0;
+}
+
+.card-officer-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.status-dot-wrap {
+  width: 20px !important;
+  height: 20px !important;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.status-dot-wrap.dot-alerting,
+.status-dot-wrap.dot-ack {
+  width: 20px !important;
+  height: 20px !important;
+  border: none;
+  background: transparent;
+}
+
+.status-dot-wrap::before {
+  display: none !important;
+}
+
+.status-dot {
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 50%;
+}
+
+.status-dot-wrap.dot-online .status-dot {
+  background: #2ecc71;
+  box-shadow: 0 0 6px rgba(46,204,113,0.4);
+}
+
+.status-dot-wrap.dot-offline .status-dot {
+  background: #b2bec3;
+}
+
+.status-dot-wrap.dot-alerting .status-dot {
+  width: 14px !important;
+  height: 14px !important;
+  color: var(--color-red);
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.status-dot-wrap.dot-ack .status-dot {
+  width: 14px !important;
+  height: 14px !important;
+  color: var(--color-green);
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+}
+
+.card-officer-name {
+
+  font-size: 9px !important;
+  line-height: 1.35 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.card-officer-date {
+
+  font-size: 7px !important;
+  line-height: 1.35;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.device-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 4px;
+  border-radius: 5px;
+  font-size: 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-view {
+  width: 100%;
+  min-height: 24px;
+  height: 24px;
+  padding: 0 6px;
+  background: var(--color-gray-light);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: auto;
+  overflow: hidden;
+}
+
+/* ---------- REMOVE OLD EFFECT ---------- */
+
+.status-dot-wrap,
+.status-dot,
+.officer-card {
+  animation: none !important;
+}
+
+/* ---------- 11. SKELETON ---------- */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f2f5 25%,
+    #e8edf2 50%,
+    #f0f2f5 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonLoad 1.4s infinite;
+  border-radius: 6px;
+}
+
+@keyframes skeletonLoad {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-card {
+  background: white;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------- 12. MODAL ---------- */
+.officer-modal .modal-content,
+.mobilize-modal .modal-content {
+  border-radius: var(--border-radius);
+  border: none;
+  box-shadow: var(--shadow-lg);
+}
+
+.officer-modal .modal-header {
+  background: var(--color-navy);
+  color: white;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  padding: 16px 22px;
+}
+
+.officer-modal .modal-header .btn-close { filter: invert(1); opacity: 0.75; }
+
+/* Avatar */
+.avatar-placeholder {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-navy), var(--color-navy-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 26px;
+  font-weight: 800;
+  border: 3px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+/* Info rows */
+.modal-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 13.5px;
+}
+
+.modal-info-row:last-child { border-bottom: none; }
+
+.modal-info-label {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  min-width: 95px;
+  flex-shrink: 0;
+}
+
+.modal-info-value {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.phone-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--color-gray-light);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 13px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+}
+
+/* ---------- 13. MOBILIZE MODAL ---------- */
+.mobilize-modal .modal-header {
+  background: linear-gradient(135deg, #922b21, #c0392b);
+  color: white;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  padding: 16px 22px;
+}
+
+.mobilize-modal .modal-header .btn-close { filter: invert(1); }
+
+.confirm-step {
+  text-align: center;
+  padding: 12px 0 4px;
+}
+
+.confirm-step .step-icon {
+  font-size: 46px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.confirm-step h5 {
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+.confirm-step p {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Password input */
+.pw-input-wrap { position: relative; }
+
+.pw-input-wrap input {
+  padding-right: 42px;
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 8px;
+}
+
+.toggle-pw-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 15px;
+  padding: 0;
+}
+
+.btn-action-red {
+  background: linear-gradient(135deg, #c0392b, #a93226);
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.btn-action-red:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-action-red:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-action-secondary {
+  background: #f1f5f9;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-action-secondary:hover {
+  background: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+/* ---------- 14. TOAST ---------- */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #1a2035;
+  color: white;
+  padding: 13px 18px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 270px;
+  max-width: 340px;
+  border-left: 4px solid var(--color-green);
+  animation: toastIn 0.25s ease;
+  pointer-events: auto;
+}
+
+.toast-item.t-error   { border-left-color: var(--color-red); }
+.toast-item.t-warning { border-left-color: var(--color-yellow); }
+.toast-item.t-info    { border-left-color: #3498db; }
+
+@keyframes toastIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ---------- 15. EMPTY STATE ---------- */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--color-text-muted);
+}
+
+.empty-state i {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 14px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--color-text-secondary);
+}
+
+.empty-state span {
+  font-size: 12.5px;
+}
+
+/* ---------- 16. RESPONSIVE ---------- */
+@media (max-width: 1400px) {
+  .officer-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 1100px) {
+  .officer-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .page-content { padding: 16px; }
+  .officer-grid { grid-template-columns: repeat(2, 1fr); }
+  .top-navbar   { padding: 0 16px; }
+  .navbar-clock { display: none; }
+}
+
+@media (max-width: 480px) {
+  .officer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* =========================================================
+   FIX ONLY — KEEP ORIGINAL DESIGN
+========================================================= */
+
+/* -----------------------------------------
+   FIX: กำลังแจ้งเตือน สูงไม่เท่ากัน
+----------------------------------------- */
+
+.summary-inline{
+  align-items:center !important;
+}
+
+.system-status-pill{
+  height:50px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  margin-top:0 !important;
+  position:relative;
+  top:0 !important;
+}
+
+/* -----------------------------------------
+   FIX: card ล้นตอน mobilization
+----------------------------------------- */
+
+.officer-grid{
+  overflow-y:auto;
+  min-height:0;
+}
+
+.officer-card{
+  min-width:0 !important;
+}
+
+/* ป้องกัน text ดัน card */
+
+.card-officer-info,
+.card-officer-name,
+.card-officer-date,
+.device-chip{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* -----------------------------------------
+   FIX: ปุ่มดูหาย
+----------------------------------------- */
+
+.btn-view{
+  position:relative;
+  z-index:2;
+  flex-shrink:0;
+  margin-top:auto;
+}
+
+/* -----------------------------------------
+   FIX: responsive แต่คง 8 cards เดิม
+----------------------------------------- */
+
+.officer-grid{
+  grid-template-columns:
+    repeat(8,minmax(0,1fr)) !important;
+}
+
+/* จอเล็กค่อยลด */
+
+@media (max-width:1400px){
+
+  .officer-grid{
+    grid-template-columns:
+      repeat(6,minmax(0,1fr)) !important;
+  }
+
+}
+
+@media (max-width:1100px){
+
+  .officer-grid{
+    grid-template-columns:
+      repeat(4,minmax(0,1fr)) !important;
+  }
+
+}
+
+@media (max-width:768px){
+
+  .officer-grid{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr)) !important;
+  }
+
+}
+
+/* -----------------------------------------
+   FIX: start mobilization แล้ว layout ไม่แตก
+----------------------------------------- */
+
+.page-content{
+  overflow:hidden;
+}
+
+.officer-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+  gap: 8px;
+  align-items: start;
+  align-content: start;
+}
+/* =========================================
+   RESTORE CARD BORDER
+========================================= */
+
+.officer-card{
+
+  border:1px solid var(--color-border) !important;
+  background:#fff;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ให้สี state ยังอยู่ */
+
+.officer-card.state-online{
+  border-top:2px solid var(--color-green) !important;
+}
+
+.officer-card.state-alerting{
+  border-top:2px solid var(--color-red) !important;
+}
+
+.officer-card.state-ack{
+  border-top:2px solid var(--color-green) !important;
+}
+
+.officer-card.state-offline{
+  border-top:2px solid #cbd5e1 !important;
+}
+/* =========================================================
+   FIX VIEW BUTTON HOVER
+========================================================= */
+
+.btn-view {
+  transition: all 0.2s ease !important;
+}
+
+.btn-view:hover {
+  background: var(--color-navy) !important;
+  color: #ffffff !important;
+  border-color: var(--color-navy) !important;
+  box-shadow: 0 2px 8px rgba(30,58,95,0.18) !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-view:hover i {
+  color: #ffffff !important;
+}
+
+
+
+
+.emergency-banner {
+  padding: 6px 20px !important;
+  font-size: 11px !important;
+  min-height: 34px !important;
+}
+
+.emergency-banner .banner-icon {
+  font-size: 14px !important;
+}
+
+/* เมื่อ emergency active ให้พื้นที่ content ลดลงตาม banner */
+body.emergency-mode .page-content {
+  height: calc(100vh - 64px - 34px) !important;
+}
+
+.officer-card {
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.officer-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 8px;
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+}
+
+.card-status-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 22px;
+  flex-shrink: 0;
+}
+
+.card-officer-info {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.btn-view {
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.card-status-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+}
+
+.officer-grid {
+  align-items: stretch;
+  align-content: start;
+  overflow-y: auto;
+}
+
+/* ================================
+   FINAL FIX: FIT TO SCREEN (NO OVERFLOW)
+================================ */
+
+/* ทำให้ page คุมความสูงจริง */
+html, body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* กัน content ล้น */
+.page-content {
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* สำคัญมาก: grid ต้อง "ยืดได้แต่ไม่ล้น" */
+.officer-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+  gap: 6px;
+  /* overflow: hidden; ปิด scrollbar แต่ไม่ให้ล้น */
+  align-content: start;
+  grid-auto-rows: minmax(110px, 1fr);
+}
+
+/* ลด card height แบบ dynamic (ห้าม fixed 120px) */
+.officer-card {
+  height: 100% !important;
+  min-height: 110px !important;
+  max-height: 130px !important;
+
+  /* overflow: hidden; */
+}
+
+/* ทำให้เนื้อหา card ยุบได้ */
+.card-officer-name {
+  font-size: 10px !important;
+}
+
+.card-officer-date {
+  font-size: 8px !important;
+}
+
+/* ปรับจอเล็กให้ไม่ล้น */
+@media (max-width: 1400px) {
+  .officer-grid { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+}
+
+@media (max-width: 1100px) {
+  .officer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+}
+
+@media (max-width: 768px) {
+  .officer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+/* =========================================================
+   EMS DASHBOARD — SAFE FIX LAYER
+   (ไม่เปลี่ยน UI เดิม / แค่ป้องกัน layout พัง)
+========================================================= */
+
+/* -------------------------------
+   1. ป้องกัน grid layout แตกตอน state change
+--------------------------------*/
+.officer-grid {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  align-content: start !important;
+  align-items: stretch !important;
+  
+}
+
+/* -------------------------------
+   2. ป้องกัน card text ดัน layout
+--------------------------------*/
+.officer-card,
+.card-officer-info,
+.card-officer-name,
+.card-officer-date,
+.device-chip {
+  min-width: 0 !important;
+  /* overflow: hidden !important; */
+}
+
+/* -------------------------------
+   3. กัน flex overflow ใน control panel
+--------------------------------*/
+.summary-inline {
+  min-width: 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+/* -------------------------------
+   4. ป้องกัน grid collapse ตอน modal / mobilize
+--------------------------------*/
+.page-content {
+  min-width: 0 !important;
+}
+
+/* -------------------------------
+   5. FIX: officer card ไม่ให้ยืดผิดตอน state change
+   (ไม่เปลี่ยน design เดิม แค่ lock behavior)
+--------------------------------*/
+.officer-card {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* -------------------------------
+   6. FIX: grid scroll stability
+--------------------------------*/
+.officer-grid {
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+}
+
+/* -------------------------------
+   7. FIX: button ไม่หาย / ไม่โดน flex บีบ
+--------------------------------*/
+.btn-view {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+/* -------------------------------
+   8. FIX: status row alignment ตอน state เปลี่ยน
+--------------------------------*/
+.card-status-row {
+  min-height: 22px;
+  flex-shrink: 0;
+}
+
+/* -------------------------------
+   9. SAFE: ป้องกัน CSS conflict จาก multiple grid declarations
+   (ไม่ลบของเดิม แค่บังคับ final behavior)
+--------------------------------*/
+.officer-grid {
+  grid-auto-rows: min-content;
+  padding-top: 2px !important;
+}
+
+/* -------------------------------
+   10. SAFE: ป้องกัน layout shift ตอน emergency/mobilize
+--------------------------------*/
+body {
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   INDEX: keep officer cards inside the grid scroll area
+========================================================= */
+.page-content {
+  overflow: hidden !important;
+}
+
+.officer-grid {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  align-content: start !important;
+  align-items: stretch !important;
+  grid-auto-rows: 120px !important;
+  padding: 2px 4px 14px !important;
+}
+
+.officer-card {
+  height: 120px !important;
+  min-height: 120px !important;
+  max-height: 120px !important;
+  overflow: hidden !important;
+}
+
+.filter-bar button{
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.filter-bar button:hover{
+  background: #f3f4f6;
+}
+.filter-bar button.active{
+  background: var(--color-navy);
+  color: #fff;
+  border-color: var(--color-navy);
+
+  box-shadow: 0 2px 8px rgba(30,58,95,.18);
+}
+
+.state-online {
+  background: #dff5e1 !important;
+  border: 2px solid #22c55e !important;
+}
+
+.state-offline {
+  background: #ececec !important;
+  border: 2px solid #9ca3af !important;
+}
+
+.state-alerting {
+  background: #fff1f2 !important;
+  border: 2px solid #ef4444 !important;
+}
+
+.state-ack {
+  background: #ecfeff !important;
+  border: 2px solid #06b6d4 !important;
+}
+
+.notification-bell {
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+
+}
+
+.notification-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: red;
+  color: white;
+
+}
+
+.history-info{
+  display:flex;
+  gap:24px;
+  margin-top:14px;
+  margin-bottom:16px;
+
+}
+
+.history-info div{
+  display:flex;
+  flex-direction:column;
+
+}
+
+.history-info strong{
+  font-size:12px;
+  color:#64748b;
+  margin-bottom:4px;
+
+}
+
+.history-info span{
+  font-size:20px;
+  font-weight:700;
+  color:#0f172a;
+
+}
+
+
